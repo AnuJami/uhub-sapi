@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	<sub-flow name="insert-covid-case-sub-flow" doc:id="e967749f-884d-44bf-9c32-b27965a05916" >
+		<logger level="DEBUG" doc:name="Start Log" doc:id="44632283-2519-41ce-b3ca-979710a0ccd1" message='transactionID: #[vars.transactionId]], correlationID: #[vars.correlationId], message: "Before insert case database call", payload: #[payload]"'/>
+	</sub-flow>
+</mule>

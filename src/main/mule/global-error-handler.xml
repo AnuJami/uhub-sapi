@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<error-handler name="global-error-handler" doc:id="824d516f-cdae-46e6-b0ee-dae0bfb1e9fc" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="a61a35e0-b818-40dc-bbee-63b4a39f14fa" type="APIKIT:BAD_REQUEST">
+			<set-variable value="#[400]" doc:name="Set HTTP Status - 400" doc:id="0705c301-b3b7-4fed-baba-2874b1f5d20e" variableName="httpStatus"/>
+			<set-variable value="Bad request" doc:name="Set Error Message" doc:id="61b9458d-d097-41cb-854d-e4b5647ae9be" variableName="errorMessage"/>
+			<set-variable value='#[(((error.description default "" replace "Error validation JSON. Error: - " with "") replace "- " with "") splitBy "\n")]' doc:name="Set Error Description" doc:id="d7566cdb-24f7-4b2c-b0ee-b4cc768c99ac" variableName="errorDescription"/>
+			<flow-ref doc:name="global-prepare-error-response-sub-flow" doc:id="4a334467-f335-47b5-9c0a-03be46c52664" name="global-prepare-error-response-sub-flow"/>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="87f19cd4-30c6-427d-ae23-4663ee63bbaf" type="APIKIT:METHOD_NOT_ALLOWED">
+			<set-variable value="#[405]" doc:name="Set HTTP Status - 405" doc:id="39f54888-def2-4c58-80b4-27037238237f" variableName="httpStatus" />
+			<set-variable value="Method not allowed" doc:name="Set Error Message" doc:id="addf87cc-f94f-4a40-8222-60870fc49e56" variableName="errorMessage" />
+			<set-variable value='#[(((error.description default "" replace "Error validation JSON. Error: - " with "") replace "- " with "") splitBy "\n")]' doc:name="Set Error Description" doc:id="a4a0fe59-1d99-4f9a-b5b3-486e627b98ab" variableName="errorDescription" />
+			<flow-ref doc:name="global-prepare-error-response-sub-flow" doc:id="d82a5ffe-6eec-4d72-9fa2-aa588702452c" name="global-prepare-error-response-sub-flow" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="7ac296ad-c379-4b3d-ade8-7afbd40b4db2" type="APIKIT:NOT_ACCEPTABLE">
+			<set-variable value="#[406]" doc:name="Set HTTP Status - 406" doc:id="ff33ddbe-2755-4802-b41a-419a6679d52d" variableName="httpStatus" />
+			<set-variable value="Not acceptable" doc:name="Set Error Message" doc:id="b0b82594-5d5e-469c-b24f-7acd123b0713" variableName="errorMessage" />
+			<set-variable value='#[(((error.description default "" replace "Error validation JSON. Error: - " with "") replace "- " with "") splitBy "\n")]' doc:name="Set Error Description" doc:id="62c228e0-9930-434b-bd62-4ccf7af7dfee" variableName="errorDescription" />
+			<flow-ref doc:name="global-prepare-error-response-sub-flow" doc:id="6084dea4-3ac7-458b-90e1-5273de437374" name="global-prepare-error-response-sub-flow" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="58f247ff-dc65-4f4d-85f9-ccfcff22e9ca" type="APIKIT:NOT_FOUND">
+			<set-variable value="#[404]" doc:name="Set HTTP Status - 404" doc:id="93fcf816-6622-4eed-bf5e-4f3917119ef8" variableName="httpStatus" />
+			<set-variable value="Not found" doc:name="Set Error Message" doc:id="dedb92f2-8e03-4cbc-9a55-073f81e5b66a" variableName="errorMessage" />
+			<set-variable value='#[(((error.description default "" replace "Error validation JSON. Error: - " with "") replace "- " with "") splitBy "\n")]' doc:name="Set Error Description" doc:id="cf8489db-d4ac-4bc5-a458-90c92e7c840e" variableName="errorDescription" />
+			<flow-ref doc:name="global-prepare-error-response-sub-flow" doc:id="07088df8-0e86-4451-96e3-7c0d6686dc03" name="global-prepare-error-response-sub-flow" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="8f284bc3-680e-42f0-ab6e-9554a9243f7c" type="APIKIT:UNSUPPORTED_MEDIA_TYPE">
+			<set-variable value="#[415]" doc:name="Set HTTP Status - 415" doc:id="fd5d1cae-ba77-4898-8a44-3679a9eee52e" variableName="httpStatus" />
+			<set-variable value="Unsupported media type" doc:name="Set Error Message" doc:id="da9f1c3f-fb6a-4ff6-8337-c82a0a5cb2dd" variableName="errorMessage" />
+			<set-variable value='#[(((error.description default "" replace "Error validation JSON. Error: - " with "") replace "- " with "") splitBy "\n")]' doc:name="Set Error Description" doc:id="839b4420-2943-4f7d-a749-c7e348a3c9f0" variableName="errorDescription" />
+			<flow-ref doc:name="global-prepare-error-response-sub-flow" doc:id="c9deaf12-a6a1-4563-a0a7-28ba7c77c315" name="global-prepare-error-response-sub-flow" />
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="bb123284-ae95-46b7-a933-245f73da36f1" type="HTTP:BAD_REQUEST">
+			<set-variable value="#[400]" doc:name="Set HTTP Status - 400" doc:id="fac4b2b0-7815-48f6-93ff-3d6cadab516b" variableName="httpStatus" />
+			<set-payload value="#[payload]" doc:name="Set Payload" doc:id="7f214d6d-9d9a-48ec-a31f-916409251c7a" />
+		</on-error-propagate>
+	</error-handler>
+	<sub-flow name="global-prepare-error-response-sub-flow" doc:id="a5ffb8d8-954c-4d3f-9414-6f03cb794ba3" >
+		<ee:transform doc:name="Init Variables" doc:id="45ad148f-11c5-429a-ba86-f5a2a60d5d61" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="logLevel" ><![CDATA[%dw 2.0
+output application/java
+---
+'ERROR']]></ee:set-variable>
+				<ee:set-variable variableName="errorRaised" ><![CDATA[%dw 2.0
+output application/java
+---
+true]]></ee:set-variable>
+				<ee:set-variable variableName="errorDescription" ><![CDATA[%dw 2.0
+output application/java
+---
+if(vars.errorDescription?)
+	vars.errorDescrption
+else
+	error.exception.detailMessage]]></ee:set-variable>
+				<ee:set-variable variableName="logCategory" ><![CDATA[%dw 2.0
+output application/java
+---
+'Exception']]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Error Response" doc:id="5d547511-93a9-4886-98d7-3ae1339b69ef" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java encoding="UTF-8", skipNullOn="everywhere"
+var errors = (((error.description default "" replace "Error validation JSON. Error: - " with "") replace "- " with "") splitBy "\n")
+---
+{
+	code: vars.httpStatus,
+	message : if(vars.errorMessage != null) vars.errorMessage else (error.errorType.identifier),
+	description : if(vars.errorDescription != null) vars.errorDescription else error.description,
+	dateTime : now() as String {format: "yyyy-MM-dd'T'HH:mm:ss'Z'"},
+	transactionId : vars.transactionId
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Error Log" doc:id="c503fa9c-af0c-4521-a4bc-ce0f38b791e7" message='Transaction [#[vars.transactionId]] - Error Code [#[vars.httpStatus]] - Error Message [#[error.errorType.identifier default "]] - Error Description [#[error.description default "]]'/>
+	</sub-flow>
+</mule>
